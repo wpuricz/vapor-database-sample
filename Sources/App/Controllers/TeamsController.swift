@@ -2,6 +2,20 @@ import Vapor
 import HTTP
 
 final class TeamController: ResourceRepresentable {
+    
+    func addRoutes(drop:Droplet) {
+        let route = drop.grouped("teams")
+        route.get(handler: index)
+        route.post(handler: create)
+        route.delete(Team.self, handler: delete)
+        route.get(Team.self, "players", handler: teamsIndex)
+    }
+    
+    func teamsIndex(request: Request, team: Team) throws -> ResponseRepresentable {
+        let children = try team.players().makeNode()
+        return try JSON(node: children)
+    }
+    
     func index(request: Request) throws -> ResponseRepresentable {
         return try Team.all().makeNode().converted(to: JSON.self)
     }

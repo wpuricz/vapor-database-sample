@@ -25,6 +25,22 @@ drop.get("version") { request in
 
 drop.resource("posts", PostController())
 
+
+//let teamController: TeamController = TeamController()
+//teamController.addRoutes(drop: drop)
+
+let playerController: PlayerController = PlayerController()
+playerController.addRoutes(drop: drop)
+
+// Testing getting children, players from teams
+// TODO: Fix issue
+drop.get("children") { request in
+    let team = try Team.find(1)!
+    let players = try team.players().makeNode()
+    return try JSON(node:players)
+}
+
+
 configureRoutes(router: drop)
 loadPreparations(drop: drop)
 drop.run()
