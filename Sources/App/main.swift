@@ -25,4 +25,6 @@ drop.get("version") { request in
 
 drop.resource("posts", PostController())
 
+configureRoutes(router: drop)
+loadPreparations(drop: drop)
 drop.run()
