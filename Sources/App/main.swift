@@ -25,7 +25,7 @@ drop.get("version") { request in
 
 drop.resource("posts", PostController())
 
-// manually adding routes
+// manually adding routes for players, user, and roles
 let playerController: PlayerController = PlayerController()
 playerController.addRoutes(drop: drop)
 
