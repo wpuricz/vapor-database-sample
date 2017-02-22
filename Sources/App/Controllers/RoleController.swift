@@ -2,6 +2,28 @@ import Vapor
 import HTTP
 
 final class RoleController: ResourceRepresentable {
+    
+    func addRoutes(drop: Droplet) {
+        let routes = drop.grouped("roles")
+        routes.get(handler: index)
+        routes.post(handler: create)
+        routes.get(Role.self, handler: show)
+        routes.patch(Role.self, handler: update)
+        routes.delete(Role.self, handler: delete)
+        
+        routes.get(Role.self,"users", handler: usersIndex)
+        
+    }
+    
+    /* 
+     GET http://localhost:8080/roles/1/users
+     get all the users that have role 1
+    */
+    func usersIndex(request: Request, role: Role) throws -> ResponseRepresentable {
+        let users = try role.users()
+        return try JSON(node: users.makeNode())
+    }
+    
     func index(request: Request) throws -> ResponseRepresentable {
         return try Role.all().makeNode().converted(to: JSON.self)
     }

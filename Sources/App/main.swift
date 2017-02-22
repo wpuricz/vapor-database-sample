@@ -25,15 +25,16 @@ drop.get("version") { request in
 
 drop.resource("posts", PostController())
 
-
-//let teamController: TeamController = TeamController()
-//teamController.addRoutes(drop: drop)
-
+// manually adding routes
 let playerController: PlayerController = PlayerController()
 playerController.addRoutes(drop: drop)
 
 let userController: UserController = UserController()
 userController.addRoutes(drop: drop)
+
+let roleController: RoleController = RoleController()
+roleController.addRoutes(drop: drop)
+
 
 // Testing getting children, players from teams
 // TODO: Fix issue

@@ -12,17 +12,21 @@ final class UserController: ResourceRepresentable {
         routes.patch(User.self, handler: update)
         routes.delete(User.self, handler: delete)
         
-        routes.post(User.self,"join",Role.self, handler: joinRole)
+        routes.post(User.self,"roles",Role.self, handler: joinRole)
         routes.get(User.self,"roles", handler: rolesIndex)
         
     }
     
+    // Add a role to a user 
+    // POST http://localhost:8080/users/1/roles/2
     func joinRole(request: Request, user: User, role: Role) throws -> ResponseRepresentable {
         var pivot = Pivot<User,Role>(user,role)
         try pivot.save()
         return user
     }
     
+    // Get all the roles for a user
+    // GET http://localhost:8080/users/1/roles
     func rolesIndex(request: Request, user: User) throws -> ResponseRepresentable {
         let roles = try user.roles()
         return try JSON(node: roles.makeNode())
