@@ -22,6 +22,21 @@ final class User: Model {
             "email": email,
         ])
     }
+    // USING MAKE JSON TO OMIT A FIELD
+    public func makeJSON() throws -> JSON {
+        return JSON([
+            "id": self.id!.makeNode(),
+            "email": self.email.makeNode()
+            ])
+    }
+    
+//    public func makeJSON() throws -> JSON {
+//        return JSON([
+//            "id": self.id!.makeNode(),
+//            "name": self.name.makeNode(),
+//            "size": "mysize"
+//            ])
+//    }
 }
 
 extension User: Preparation {

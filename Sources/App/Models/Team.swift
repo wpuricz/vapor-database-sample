@@ -19,6 +19,15 @@ final class Team: Model {
             "name": name,
         ])
     }
+    
+    public func makeJSON() throws -> JSON {
+        return JSON([
+            "id": self.id!.makeNode(),
+            "name": self.name.makeNode(),
+            "players": try players().all().makeNode()
+            ])
+    }
+    
 }
 
 extension Team: Preparation {
