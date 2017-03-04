@@ -29,20 +29,15 @@ drop.resource("posts", PostController())
 let playerController: PlayerController = PlayerController()
 playerController.addRoutes(drop: drop)
 
+let teamController: TeamController = TeamController()
+teamController.addRoutes(drop: drop)
+
 let userController: UserController = UserController()
 userController.addRoutes(drop: drop)
 
 let roleController: RoleController = RoleController()
 roleController.addRoutes(drop: drop)
 
-
-// Testing getting children, players from teams
-// TODO: Fix issue
-drop.get("children") { request in
-    let team = try Team.find(1)!
-    let players = try team.children(nil, Player.self).all()
-    return try JSON(node:players)
-}
 
 
 configureRoutes(router: drop)

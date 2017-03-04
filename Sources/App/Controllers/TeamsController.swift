@@ -7,12 +7,13 @@ final class TeamController: ResourceRepresentable {
         let route = drop.grouped("teams")
         route.get(handler: index)
         route.post(handler: create)
+        route.get(Team.self, handler: show)
         route.delete(Team.self, handler: delete)
         route.get(Team.self, "players", handler: teamsIndex)
     }
     
     func teamsIndex(request: Request, team: Team) throws -> ResponseRepresentable {
-        let children = try team.players().makeNode()
+        let children = try team.players().all()
         return try JSON(node: children)
     }
     

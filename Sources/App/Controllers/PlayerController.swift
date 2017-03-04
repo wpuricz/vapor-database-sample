@@ -4,7 +4,13 @@ import HTTP
 final class PlayerController: ResourceRepresentable {
     
     func addRoutes(drop:Droplet) {
-        drop.get("players",Player.self,"team",handler: teamShow)
+        
+        let route = drop.grouped("players")
+        route.get(handler: index)
+        route.post(handler: create)
+        route.get(Player.self, handler: show)
+        route.delete(Player.self, handler: delete)
+        route.get(Player.self,"team",handler: teamShow)
     }
     
     func teamShow(request: Request, player: Player) throws -> ResponseRepresentable {

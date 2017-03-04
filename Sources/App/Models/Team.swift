@@ -35,10 +35,10 @@ extension Team: Preparation {
 }
 
 extension Team {
-//    func players() throws -> Children<Player> {
-//        return self.children()
-//    }
-    func players() throws -> [Player] {
-        return try children(nil, Player.self).all()
+    func players() throws -> Children<Player> {
+        return try children()
     }
+//    func players() throws -> [Player] {
+//        return try children(nil, Player.self).all()
+//    }
 }
